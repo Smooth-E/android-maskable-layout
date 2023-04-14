@@ -2,6 +2,8 @@ apply plugin: 'com.android.library'
 
 android {
 
+    namespace 'com.christophesmet.android.views.maskableframelayout'
+
     compileSdkVersion 33
 
     defaultConfig {
@@ -16,11 +18,14 @@ android {
         }
     }
 
-    namespace 'com.christophesmet.android.views.maskableframelayout'
-
 }
 
 dependencies {
-    implementation 'androidx.annotation:annotation:1.6.0'
+
+    // AndroidX Annotations 1.6.0 (latest version as of this edit)
+    // is causing duplicated classes conflicts
+    implementation 'androidx.annotation:annotation:1.5.0'
+
     implementation 'androidx.appcompat:appcompat-resources:1.6.1'
+
 }
