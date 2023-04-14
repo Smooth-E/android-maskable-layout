@@ -12,15 +12,15 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.content.res.AppCompatResources;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
-
-import com.christophesmet.android.view.maskablelayout.R;
 
 /**
  * Created by Christophe on 12/07/2014.
@@ -52,7 +52,7 @@ public class MaskableFrameLayout extends FrameLayout {
 
     private Handler mHandler;
 
-    //Mask props
+    // Mask properties
     @Nullable
     private Drawable mDrawableMask = null;
     @Nullable
@@ -184,7 +184,7 @@ public class MaskableFrameLayout extends FrameLayout {
         this.mPorterDuffXferMode = new PorterDuffXfermode(mode);
     }
 
-    //Once the size has changed we need to remake the mask.
+    // Once the size has changed we need to remake the mask.
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
@@ -194,7 +194,7 @@ public class MaskableFrameLayout extends FrameLayout {
     private void setSize(int width, int height) {
         if (width > 0 && height > 0) {
             if (mDrawableMask != null) {
-                //Remake the 9patch
+                // Remake the 9patch
                 swapBitmapMask(makeBitmapMask(mDrawableMask));
             }
         } else {
@@ -202,7 +202,7 @@ public class MaskableFrameLayout extends FrameLayout {
         }
     }
 
-    //Drawing
+    // Drawing
     @Override
     protected void dispatchDraw(Canvas canvas) {
         super.dispatchDraw(canvas);
@@ -215,7 +215,7 @@ public class MaskableFrameLayout extends FrameLayout {
         }
     }
 
-    //Once inflated we have no height or width for the mask. Wait for the layout.
+    // Once inflated we have no height or width for the mask. Wait for the layout.
     private void registerMeasure() {
         final ViewTreeObserver treeObserver = MaskableFrameLayout.this.getViewTreeObserver();
         if (treeObserver != null && treeObserver.isAlive()) {
@@ -241,12 +241,12 @@ public class MaskableFrameLayout extends FrameLayout {
         }
     }
 
-    //Logging
+    // Logging
     private void log(@NonNull String message) {
         Log.d(TAG, message);
     }
 
-    //Animation
+    // Animation
     @Override
     public void invalidateDrawable(Drawable dr) {
         if (dr != null) {
@@ -279,17 +279,12 @@ public class MaskableFrameLayout extends FrameLayout {
         }
     }
 
-    //Utils
+    // Utils
     private PorterDuffXfermode getModeFromInteger(int index) {
         PorterDuff.Mode mode = null;
         switch (index) {
             case MODE_ADD:
-                if (Build.VERSION.SDK_INT >= 11) {
-                    mode = PorterDuff.Mode.ADD;
-                } else {
-                    log("MODE_ADD is not supported on api lvl " + Build.VERSION.SDK_INT);
-                    mode = PorterDuff.Mode.DST_IN;
-                }
+                mode = PorterDuff.Mode.ADD;
                 break;
             case MODE_CLEAR:
                 mode = PorterDuff.Mode.CLEAR;
